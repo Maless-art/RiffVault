@@ -1,0 +1,11 @@
+window.RV=window.RV||{};
+RV.esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+RV.descendants=function(folderId){const ids=[folderId];for(let i=0;i<ids.length;i++)RV.db.folders.filter(f=>f.parentId===ids[i]).forEach(f=>ids.push(f.id));return ids};
+RV.folderPath=function(id){const out=[];let f=RV.db.folders.find(x=>x.id===id);while(f){out.unshift(f);f=RV.db.folders.find(x=>x.id===f.parentId)}return out};
+RV.videoId=function(url){try{const u=new URL(url);if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0];if(u.searchParams.get('v'))return u.searchParams.get('v');return u.pathname.match(/\/(shorts|embed)\/([^/?]+)/)?.[2]||null}catch{return null}};
+RV.normalizeOrders=function(kind,parentId){const items=kind==='folder'?RV.db.folders.filter(f=>f.parentId===parentId):RV.db.songs.filter(s=>s.folderId===parentId);items.sort((a,b)=>(a.order??0)-(b.order??0)).forEach((x,i)=>x.order=i);RV.save()};
+RV.deleteSong=function(id){if(!confirm('¿Eliminar esta canción de RiffVault?'))return;RV.db.songs=RV.db.songs.filter(x=>x.id!==id);if(RV.db.currentSong===id)RV.db.currentSong=null;RV.save();RV.render()};
+RV.toggleFavorite=function(id){const s=RV.db.songs.find(x=>x.id===id);if(!s)return;s.favorite=!s.favorite;RV.save();RV.render()};
+RV.deleteFolder=function(id){const f=RV.db.folders.find(x=>x.id===id);if(!f||!confirm(`¿Eliminar “${f.name}” y todo su contenido?`))return;const ids=RV.descendants(id);RV.db.folders=RV.db.folders.filter(x=>!ids.includes(x.id));RV.db.songs=RV.db.songs.filter(x=>!ids.includes(x.folderId));RV.save();RV.render()};
+RV.renameFolder=function(id){const f=RV.db.folders.find(x=>x.id===id),n=f&&prompt('Nuevo nombre',f.name);if(n?.trim()){f.name=n.trim();RV.save();RV.render()}};
+RV.moveSongPrompt=function(id){const s=RV.db.songs.find(x=>x.id===id);if(!s)return;const choices=['0: Por organizar',...RV.db.folders.map((f,i)=>`${i+1}: ${RV.folderPath(f.id).map(x=>x.name).join(' › ')}`)].join('\n');const n=prompt('Escribe el número del destino:\n'+choices);if(n===null)return;const idx=Number(n);if(!Number.isInteger(idx)||idx<0||idx>RV.db.folders.length)return alert('Destino inválido');s.folderId=idx===0?null:RV.db.folders[idx-1].id;s.order=RV.db.songs.filter(x=>x.folderId===s.folderId).length;RV.save();RV.render()};
