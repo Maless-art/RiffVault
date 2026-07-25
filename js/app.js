@@ -12,4 +12,27 @@ $('#addSongBtn').onclick=()=>{$('#songUrl').value='';$('#songTitle').value='';$(
 $('#searchInput').oninput=RV.render;$$('.tab').forEach(t=>t.onclick=()=>RV.setView(t.dataset.view));$('#settingsBtn').onclick=()=>{$('#libraryView').hidden=true;$('#settingsView').hidden=false};$('#backSettings').onclick=RV.render;$$('.skin').forEach(b=>b.onclick=()=>{RV.db.settings.skin=b.dataset.skin;RV.save();RV.applySkin()});$('#endMode').onchange=e=>{RV.db.settings.endMode=e.target.value;RV.save()};$('#resetBtn').onclick=()=>{if(confirm('¿Borrar todos los datos de prueba?')){RV.db=structuredClone(RV.seed);RV.save();RV.currentFolder=null;RV.render()}};
 $('#nextBtn').onclick=RV.nextSong;$('#prevBtn').onclick=RV.prevSong;$('#playerToggle').onclick=()=>{const p=$('#playerBar');p.classList.toggle('collapsed');$('#playerToggle').textContent=p.classList.contains('collapsed')?'▴':'▾'};$('#playBtn').onclick=()=>{if(!RV.ytPlayer)return;RV.ytPlayer.getPlayerState()===1?RV.ytPlayer.pauseVideo():RV.ytPlayer.playVideo()};
 $('#blockedOpenYoutube').onclick=()=>{const s=RV.queue[RV.queueIndex]||RV.db.songs.find(x=>x.id===RV.db.currentSong);if(s)window.open(s.url||`https://www.youtube.com/watch?v=${s.videoId}`,'_blank');$('#blockedDialog').close()};$('#blockedSkip').onclick=()=>{$('#blockedDialog').close();RV.nextSong()};$('#blockedDelete').onclick=()=>{const s=RV.queue[RV.queueIndex]||RV.db.songs.find(x=>x.id===RV.db.currentSong);$('#blockedDialog').close();if(s)RV.deleteSong(s.id)};
-window.addEventListener('DOMContentLoaded',()=>{RV.applySkin();const p=new URLSearchParams(location.search),shared=p.get('url')||p.get('text');if(shared){$('#songUrl').value=shared;$('#songDialog').showModal()}RV.render();const yt=document.createElement('script');yt.src='https://www.youtube.com/iframe_api';document.head.appendChild(yt)});window.addEventListener('load',()=>setTimeout(()=>{const splash=$('#splash');if(splash)splash.style.opacity='0';$('.app').classList.add('ready');setTimeout(()=>splash?.remove(),600)},1800));if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+window.addEventListener('DOMContentLoaded',()=>{RV.applySkin();const p=new URLSearchParams(location.search),shared=p.get('url')||p.get('text');if(shared){$('#songUrl').value=shared;$('#songDialog').showModal()}RV.render();const yt=document.createElement('script');yt.src='https://www.youtube.com/iframe_api';document.head.appendChild(yt)});
+
+function hideSplash() {
+  const splash = document.getElementById('splash');
+  const app = document.querySelector('.app');
+
+  if (app) {
+    app.classList.add('ready');
+  }
+
+  if (splash) {
+    splash.style.opacity = '0';
+
+    setTimeout(() => {
+      splash.remove();
+    }, 600);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(hideSplash, 1800);
+});
+
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
