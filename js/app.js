@@ -27,7 +27,7 @@ function hideSplash() {
 
     setTimeout(() => {
       splash.remove();
-    }, 600);
+    }, 1600);
   }
 }
 
