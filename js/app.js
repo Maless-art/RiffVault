@@ -32,7 +32,7 @@ function hideSplash() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(hideSplash, 2500);
+  setTimeout(hideSplash, 4500);
 });
 
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
