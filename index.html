@@ -209,8 +209,92 @@
 </div>
 <div class="player collapsed" id="playerBar" hidden><div class="videoStage"><div id="ytPlayer"></div></div><div class="playerTop"><img class="thumb" id="playerThumb"><div class="playerInfo"><div class="rowTitle" id="playerTitle">Sin reproducción</div><div class="rowMeta" id="playerMeta"></div></div><button class="playerToggle" id="playerToggle" title="Mostrar u ocultar video">▴</button><div class="playerControls"><button id="prevBtn">⏮</button><button class="main" id="playBtn">▶</button><button id="nextBtn">⏭</button></div></div></div>
 
-<dialog id="folderDialog"><form class="modal" method="dialog"><h3>Nueva carpeta</h3><div class="field"><label>Nombre</label><input id="folderName" required maxlength="60" placeholder="Ej. Metalcore"></div><div class="modalActions"><button class="ghost" value="cancel">Cancelar</button><button class="primary" id="saveFolderBtn" value="default">Crear</button></div></form></dialog>
-<dialog id="songDialog"><form class="modal" method="dialog"><h3>Agregar canción</h3><div class="field"><label>Enlace de YouTube</label><input id="songUrl" required placeholder="https://youtu.be/..."></div><div class="field"><label>Título (opcional)</label><input id="songTitle" placeholder="Se intentará obtener automáticamente"></div><div class="field"><label>Artista / canal (opcional)</label><input id="songArtist"></div><div class="field"><label>Guardar en</label><select id="songDestination"></select></div><div class="modalActions"><button class="ghost" value="cancel">Cancelar</button><button class="primary" id="saveSongBtn" value="default">Guardar</button></div></form></dialog>
+<dialog id="folderDialog">
+  <form class="modal" method="dialog">
+    <h3>Nueva carpeta</h3>
+
+    <div class="field">
+      <label>Nombre</label>
+      <input
+        id="folderName"
+        required
+        maxlength="60"
+        placeholder="Ej. Metalcore"
+      >
+    </div>
+
+    <div class="modalActions">
+      <button
+        type="button"
+        class="ghost"
+        id="cancelFolderBtn"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="primary"
+        id="saveFolderBtn"
+        value="default"
+      >
+        Crear
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="songDialog">
+  <form class="modal" method="dialog">
+    <h3>Agregar canción</h3>
+
+    <div class="field">
+      <label>Enlace de YouTube</label>
+      <input
+        id="songUrl"
+        required
+        placeholder="https://youtu.be/..."
+      >
+    </div>
+
+    <div class="field">
+      <label>Título (opcional)</label>
+      <input
+        id="songTitle"
+        placeholder="Se intentará obtener automáticamente"
+      >
+    </div>
+
+    <div class="field">
+      <label>Artista / canal (opcional)</label>
+      <input id="songArtist">
+    </div>
+
+    <div class="field">
+      <label>Guardar en</label>
+      <select id="songDestination"></select>
+    </div>
+
+    <div class="modalActions">
+      <button
+        type="button"
+        class="ghost"
+        id="cancelSongBtn"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="submit"
+        class="primary"
+        id="saveSongBtn"
+        value="default"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</dialog>
 <script>
 const SKINS={red:{accent:'#e32727',accent2:'#7a0c0c'},blue:{accent:'#2584ff',accent2:'#103d80'},gray:{accent:'#929292',accent2:'#444'}};
 const seed={folders:[{id:'metal',name:'Metal',parentId:null,order:0},{id:'atmosphere',name:'Atmósfera',parentId:null,order:1},{id:'rock',name:'Rock',parentId:null,order:2},{id:'soundtracks',name:'Soundtracks',parentId:null,order:3},{id:'power',name:'Power Metal',parentId:'metal',order:0},{id:'metalcore',name:'Metalcore',parentId:'metal',order:1}],songs:[],settings:{skin:'red',endMode:'next'},currentFolder:null,currentSong:null};
@@ -268,6 +352,13 @@ window.addEventListener("load", () => {
     }, 1800);
 
 });
+$('#cancelFolderBtn').onclick = () => {
+    $('#folderDialog').close();
+};
+
+$('#cancelSongBtn').onclick = () => {
+    $('#songDialog').close();
+};
 
 </script>
 </body>
