@@ -27,12 +27,12 @@ function hideSplash() {
 
     setTimeout(() => {
       splash.remove();
-    }, 1600);
+    }, 600);
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(hideSplash, 1800);
+  setTimeout(hideSplash, 2500);
 });
 
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
