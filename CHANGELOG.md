@@ -1,22 +1,33 @@
-# RiffVault v0.2
+# RiffVault v0.3.0
 
 ## Reproducción
 
-- Corregido el recorrido al terminar una carpeta.
-- El orden continuo ahora respeta la jerarquía visible de la biblioteca:
-  1. canciones directas de la carpeta;
-  2. subcarpetas en orden;
-  3. siguiente carpeta principal;
-  4. al terminar la última carpeta, vuelve a la primera carpeta reproducible.
-- Las carpetas vacías se omiten automáticamente sin saltar sus subcarpetas.
-- El modo **Repetir carpeta actual** conserva su comportamiento.
+- Al reabrir la aplicación, la canción guardada se vuelve a cargar correctamente en el reproductor.
+- Se conserva el segundo aproximado de reproducción y se prepara la canción sin iniciar automáticamente.
+- Se añadió pantalla completa mediante botón y doble toque/clic sobre el video.
+- Se mantiene el recorrido continuo entre carpetas de la versión 0.2.0.
 
-## Datos
+## Biblioteca
 
-- Se mantiene sin cambios la clave de almacenamiento `tma_db`.
-- No se cambió la estructura de carpetas, canciones, favoritos ni configuración.
-- No se agregó ninguna limpieza, reinicio ni migración automática de `localStorage`.
+- Ahora es posible editar el enlace, título, artista y carpeta de una canción existente.
+- La canción activa muestra un ecualizador discreto en la lista.
 
-## PWA
+## Estadísticas
 
-- Caché actualizado a `riffvault-v0.2.0` para distribuir correctamente la nueva lógica.
+- Se cuenta una reproducción cuando se escucha al menos el 90 % de una canción de más de 15 segundos.
+- Se añadió un Top 5 rotativo con posición, título y cantidad de reproducciones.
+- Las estadísticas se guardan en `riffvault_stats_v1`, separadas de la biblioteca.
+
+## Acerca de RiffVault
+
+- Versión visible: 0.3.0.
+- Fecha de creación: 24 de julio de 2026.
+- Historial minimalista de versiones.
+- Crédito: Idea y desarrollo, Franklin Black; con apoyo de ChatGPT.
+
+## Compatibilidad y datos
+
+- La clave principal continúa siendo `tma_db`.
+- No se renombra, reinicia ni migra automáticamente la biblioteca existente.
+- El progreso se guarda por separado en `riffvault_playback_v1`.
+- Las estadísticas se guardan por separado en `riffvault_stats_v1`.
