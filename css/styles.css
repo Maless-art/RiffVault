@@ -31,3 +31,28 @@ dialog{width:min(520px,calc(100% - 24px));border:1px solid var(--line);border-ra
 .videoStage{position:relative}.fullscreenBtn{position:absolute;right:9px;top:9px;z-index:2;background:#000a!important;border:1px solid #ffffff22!important}.player.collapsed .fullscreenBtn{display:none}.videoStage:fullscreen{border-radius:0;display:grid;place-items:center;background:#000}.videoStage:fullscreen iframe{width:100vw!important;height:100vh!important}
 .about{text-align:center}.about>img{width:72px;height:72px;border-radius:18px}.about h3{font-size:24px;margin:8px 0 0}.tagline{color:var(--muted);margin:2px 0}.aboutVersion{font-size:12px;color:var(--accent);font-weight:700}.aboutMeta{display:grid;gap:2px;padding:13px 0;border-top:1px solid var(--line)}.aboutMeta span,.aboutMeta small{color:var(--muted);font-size:12px}.history{text-align:left;border-top:1px solid var(--line);padding-top:12px}.history h4{margin:0 0 10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-size:12px}.history article{padding:10px 0;border-bottom:1px solid var(--line)}.history article>b{color:var(--accent);margin-right:8px}.history article>span{font-size:13px}.history ul{margin:7px 0 0;padding-left:18px;color:var(--muted);font-size:12px}.history li{margin:3px 0}
 @media(max-width:560px){.rowActions .mini{min-width:31px;width:31px;height:34px;padding:5px}.playingBars{width:11px}.versionBadge{display:none}.topBanner{margin-top:0}.playerTop{gap:7px}.playerControls{gap:4px}.player button{width:35px;height:35px}}
+
+/* RiffVault v0.3.0 — ajuste móvil de listas */
+.list,.row{min-width:0;max-width:100%}
+.row{width:100%;overflow:hidden}
+.songRow{padding:8px;gap:8px}
+.songRow .thumb{flex:0 0 46px;width:46px;height:46px}
+.songRow .rowMain{flex:1 1 0;min-width:52px;overflow:hidden}
+.titleViewport{width:100%;min-width:0;overflow:hidden;white-space:nowrap}
+.titleTrack{display:inline-block;max-width:none;min-width:100%;overflow:visible;text-overflow:clip;will-change:transform}
+.titleTrack.marquee{animation:titleMarquee 10s ease-in-out 2s infinite alternate}
+@keyframes titleMarquee{0%,18%{transform:translateX(0)}82%,100%{transform:translateX(var(--scroll-distance))}}
+.songRow .rowActions{display:flex;flex:0 0 auto;gap:4px;min-width:max-content}
+.songRow .rowActions .mini{flex:0 0 38px;width:38px;min-width:38px;height:38px;padding:0;display:grid;place-items:center;font-size:15px}
+.dragHandle{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:none;flex:0 0 38px;width:38px;min-width:38px;height:38px;padding:0;display:grid;place-items:center}
+.dragHandle::selection{background:transparent}
+.breadcrumb:empty{display:none}
+@media(max-width:430px){
+  .songRow{gap:6px;padding:7px}
+  .songRow .thumb{flex-basis:42px;width:42px;height:42px}
+  .songRow .rowActions{gap:2px}
+  .songRow .rowActions .mini{flex-basis:36px;width:36px;min-width:36px;height:36px}
+  .dragHandle{flex-basis:35px;width:35px;min-width:35px;height:36px}
+  .playingBars{position:absolute;margin-left:77px;margin-top:28px;background:var(--panel);border-radius:4px;padding:1px;width:13px}
+}
+@media(prefers-reduced-motion:reduce){.titleTrack.marquee{animation:none;text-overflow:ellipsis;max-width:100%;overflow:hidden}}
