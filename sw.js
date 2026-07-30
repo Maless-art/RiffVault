@@ -1,4 +1,4 @@
-const CACHE='riffvault-v0.3.0';
+const CACHE='riffvault-v0.3.0-listfix-1';
 const ASSETS=['./','./index.html','./css/styles.css','./js/storage.js','./js/library.js','./js/player.js','./js/app.js','./manifest.webmanifest','./icons/icon-red-192.png','./icons/icon-red-512.png','./icons/icon-blue-192.png','./icons/icon-blue-512.png','./icons/icon-grey-192.png','./icons/icon-grey-512.png','./icons/logo-red.png','./icons/logo-blue.png','./icons/logo-grey.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

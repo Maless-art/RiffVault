@@ -31,3 +31,11 @@
 - No se renombra, reinicia ni migra automáticamente la biblioteca existente.
 - El progreso se guarda por separado en `riffvault_playback_v1`.
 - Las estadísticas se guardan por separado en `riffvault_stats_v1`.
+
+### Ajuste móvil (30 de julio de 2026)
+- Los controles de cada canción permanecen visibles en pantallas estrechas.
+- Los títulos largos se desplazan lateralmente sin aumentar la altura de la fila.
+- Se amplió el área táctil de Favorito, Editar, Mover y Eliminar.
+- El control de arrastre ya no activa la selección azul de texto en iPhone.
+- El Top 5 permanece visible y explica cuando aún no existen reproducciones completas registradas.
+- Se simplificó la ruta de navegación dentro de las carpetas.
